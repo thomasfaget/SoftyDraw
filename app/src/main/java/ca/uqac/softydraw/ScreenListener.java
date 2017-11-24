@@ -10,11 +10,17 @@ import android.view.View;
 
 public class ScreenListener implements View.OnTouchListener {
 
+
+
+    // The main pointer used to draw
+    private int mainPointer;
+
+    // Main pointer position :
+    private int xPos;
+    private int yPos;
+
     // Current color
     private int color = 1;
-
-    // The pointer use to draw
-    private int mainPointer;
 
     // The callback to notify
     private ScreenCallback callback;
@@ -25,7 +31,6 @@ public class ScreenListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
 
         int action = event.getAction();
         int actionMasked = event.getActionMasked();
