@@ -6,23 +6,82 @@
     android:layout_height="match_parent"
     tools:context="ca.uqac.softydraw.SoftyDrawActivity">
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:text="TEST"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:id="@+id/buttonsPanel"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <ca.uqac.softydraw.PaintView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/colorButton1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#FF660000"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/button_select_color"
+                android:tag="#FF660000" />
+
+            <ImageButton
+                android:id="@+id/colorButton2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#FFFF0000"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/button_select_color"
+                android:tag="#FFFF0000" />
+
+            <ImageButton
+                android:id="@+id/colorButton3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#FFFF6600"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/button_select_color"
+                android:tag="#FFFF6600" />
+
+            <ImageButton
+                android:id="@+id/colorButton4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#FFFFCC00"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/button_select_color"
+                android:tag="#FFFFCC00" />
+
+            <ImageButton
+                android:id="@+id/colorButton5"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#FF009900"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/button_select_color"
+                android:tag="#FF009900" />
+
+            <ImageButton
+                android:id="@+id/colorButton6"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#FF009999"
+                android:contentDescription="@string/paint"
+                android:src="@drawable/button_select_color"
+                android:tag="#FF009999" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ca.uqac.softydraw.PaintingView
         android:id="@+id/paintView"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/background_light"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/testButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/buttonsPanel"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
