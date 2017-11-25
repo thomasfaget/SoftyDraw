@@ -52,7 +52,7 @@ public class SoftyDrawActivity extends AppCompatActivity {
             }
         };
 
-        // Set up color button listener
+        // add listener for color buttons
         for (ImageButton button: colorButtons) {
             button.setOnLongClickListener(changeColorListener);
             button.setOnClickListener(new View.OnClickListener() {
