@@ -10,14 +10,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,13 +32,19 @@ public class SoftyDrawActivity extends AppCompatActivity {
     // Views
     private PaintingView paintingView;
     private Toolbar toolbar;
+    private LinearLayout buttonsLayout;
 
     // Size
-    private float smallBrush, mediumBrush, largeBrush;
+    private float smallBrush, mediumBrush, largeBrush, buttonsDimens;
 
     private Drawable iconErase;
 
+    private List<ImageButton> colorButtons;
     private ImageButton currentButtonUsedToDraw;
+
+    // Colors button listener :
+    private View.OnLongClickListener longClickListener;
+    private View.OnClickListener clickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +61,15 @@ public class SoftyDrawActivity extends AppCompatActivity {
         smallBrush = getResources().getInteger(R.integer.small_size);
         mediumBrush = getResources().getInteger(R.integer.medium_size);
         largeBrush = getResources().getInteger(R.integer.large_size);
+        buttonsDimens = getResources().getDimension(R.dimen.button_size);
 
         iconErase = getResources().getDrawable(android.R.drawable.ic_menu_close_clear_cancel);
 
         // View
         paintingView = findViewById(R.id.paintView);
         toolbar = findViewById(R.id.toolbar);
-
-        List<ImageButton> colorButtons= new ArrayList<>();
+        buttonsLayout = findViewById(R.id.buttonsLayout);
+        colorButtons = new ArrayList<>();
         colorButtons.add((ImageButton) findViewById(R.id.colorButton1));
         colorButtons.add((ImageButton) findViewById(R.id.colorButton2));
         colorButtons.add((ImageButton) findViewById(R.id.colorButton3));
@@ -70,7 +77,8 @@ public class SoftyDrawActivity extends AppCompatActivity {
         colorButtons.add((ImageButton) findViewById(R.id.colorButton5));
         colorButtons.add((ImageButton) findViewById(R.id.colorButton6));
 
-        View.OnLongClickListener changeColorListener = new View.OnLongClickListener() {
+        // Buttons listener
+        longClickListener = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 ImageButton button = (ImageButton) view;
@@ -78,18 +86,18 @@ public class SoftyDrawActivity extends AppCompatActivity {
                 return true;
             }
         };
+        clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageButton button = (ImageButton) view;
+                changeCurrentColor(button);
+            }
+        };
 
         // add listener for color buttons
         for (ImageButton button: colorButtons) {
-            button.setOnLongClickListener(changeColorListener);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    ImageButton button = (ImageButton) view;
-                    changeCurrentColor(button);
-                }
-            });
+            button.setOnLongClickListener(longClickListener);
+            button.setOnClickListener(clickListener);
         }
 
         // Action bar
@@ -100,11 +108,17 @@ public class SoftyDrawActivity extends AppCompatActivity {
         changeCurrentColor(colorButtons.get(0)); // Set first color
     }
 
+    /** Menu listener (in the toolbar)
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.addButton :
+                addColorButton();
+                break;
             case R.id.erase :
                 paintingView.switchErase();
+                // Change the icon fo the eraser in the toolbar
                 if (paintingView.getErase()) {
                     iconErase.setColorFilter(getResources().getColor(R.color.green_app_dark), PorterDuff.Mode.SCREEN);
                 }
@@ -139,6 +153,11 @@ public class SoftyDrawActivity extends AppCompatActivity {
         return true;
     }
 
+
+    //////////////////////////
+    ///// Intern Methods /////
+    //////////////////////////
+
     /** Display the color picker in order to change the color of a button
      *
      * @param button the button which to change the color
@@ -165,7 +184,7 @@ public class SoftyDrawActivity extends AppCompatActivity {
         // Change color used to draw
         int color = Color.parseColor((String) button.getTag());
         paintingView.setCurrentColor(color);
-        // Change current button used to draw in the interface
+        // Change current button used to draw (in the interface)
         button.setImageDrawable(getResources().getDrawable(R.drawable.button_select_color_pressed));
         if (currentButtonUsedToDraw != null && currentButtonUsedToDraw != button) {
             currentButtonUsedToDraw.setImageDrawable(getResources().getDrawable(R.drawable.button_select_color));
@@ -234,9 +253,12 @@ public class SoftyDrawActivity extends AppCompatActivity {
     }
 
 
+    /** Change the width of the brush
+     */
     private void changeBrush() {
         CharSequence[] items = {" Fin (10)"," Médium (20)"," Epais (30)"};
 
+        // Get the last brush size to init the checkbox
         int checkedItem = -1;
         if (paintingView.getLastBrushSize() == 10) {
             checkedItem = 0;
@@ -269,6 +291,25 @@ public class SoftyDrawActivity extends AppCompatActivity {
                         }
                     }
                 }).show();
+    }
+
+    /** Add a color button
+     */
+    private void addColorButton() {
+        ImageButton button = new ImageButton(this);
+        button.setBackgroundColor(Color.BLACK);
+        button.setTag("#FF000000");
+        button.setImageResource(R.drawable.button_select_color);
+        button.setScaleType(ImageView.ScaleType.CENTER); // fix the size fo the button
+        button.setPadding(0,0,0,0);
+        button.setLayoutParams(new LinearLayout.LayoutParams( (int) buttonsDimens, (int) buttonsDimens));
+
+        button.setOnLongClickListener(longClickListener);
+        button.setOnClickListener(clickListener);
+
+        colorButtons.add(button);
+        buttonsLayout.addView(button, 0, colorButtons.get(0).getLayoutParams());
+        button.invalidate();
     }
 
 

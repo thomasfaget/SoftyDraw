@@ -10,4 +10,5 @@
     <string name="brush1">Fin</string>
     <string name="brush2">Moyen</string>
     <string name="brush3">Epais</string>
+    <string name="addButton">Ajouter couleur</string>
 </resources>
