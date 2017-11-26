@@ -6,21 +6,30 @@
     android:layout_height="match_parent"
     tools:context="ca.uqac.softydraw.SoftyDrawActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/ToolbarTheme"/>
+
     <ScrollView
         android:id="@+id/buttonsPanel"
-        android:layout_width="80dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="@dimen/button_size"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/colorButton1"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
                 android:background="#FF660000"
                 android:contentDescription="@string/paint"
                 android:src="@drawable/button_select_color"
@@ -28,8 +37,8 @@
 
             <ImageButton
                 android:id="@+id/colorButton2"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
                 android:background="#FFFF0000"
                 android:contentDescription="@string/paint"
                 android:src="@drawable/button_select_color"
@@ -37,8 +46,8 @@
 
             <ImageButton
                 android:id="@+id/colorButton3"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
                 android:background="#FFFF6600"
                 android:contentDescription="@string/paint"
                 android:src="@drawable/button_select_color"
@@ -46,8 +55,8 @@
 
             <ImageButton
                 android:id="@+id/colorButton4"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
                 android:background="#FFFFCC00"
                 android:contentDescription="@string/paint"
                 android:src="@drawable/button_select_color"
@@ -55,8 +64,8 @@
 
             <ImageButton
                 android:id="@+id/colorButton5"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
                 android:background="#FF009900"
                 android:contentDescription="@string/paint"
                 android:src="@drawable/button_select_color"
@@ -64,8 +73,8 @@
 
             <ImageButton
                 android:id="@+id/colorButton6"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
                 android:background="#FF009999"
                 android:contentDescription="@string/paint"
                 android:src="@drawable/button_select_color"
@@ -82,6 +91,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonsPanel"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </android.support.constraint.ConstraintLayout>

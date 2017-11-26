@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/changeBrush"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/changeBrush"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/erase"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="@string/erase"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/div1"
+        android:icon="?attr/dividerVertical"
+        android:title="@string/div1"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/newDrawing"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/new_drawing"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/saveDrawing"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/save"
+        app:showAsAction="ifRoom"/>
+
+</menu>

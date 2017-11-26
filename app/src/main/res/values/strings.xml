@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">SoftyDraw</string>
     <string name="paint">paint</string>
+    <string name="action_settings">Setting</string>
+    <string name="save">Save</string>
+    <string name="new_drawing">New Drawing</string>
+    <string name="div1">div1</string>
+    <string name="erase">Erase</string>
+    <string name="changeBrush">Change brush</string>
+    <string name="brush1">Fin</string>
+    <string name="brush2">Moyen</string>
+    <string name="brush3">Epais</string>
 </resources>
