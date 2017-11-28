@@ -9,15 +9,10 @@
         app:showAsAction="always" />
 
     <item
-        android:icon="?attr/dividerVertical"
-        android:title=""
-    app:showAsAction="always"/>
-
-    <item
         android:id="@+id/changeBrush"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/changeBrush"
-        app:showAsAction="always" />
+        app:showAsAction="withText|always" />
 
     <item
         android:id="@+id/erase"
@@ -26,9 +21,10 @@
         app:showAsAction="always" />
 
     <item
-        android:icon="?attr/dividerVertical"
+        android:icon="?android:attr/dividerVertical"
         android:title=""
-    app:showAsAction="always" />
+        app:actionLayout="@layout/divider_line"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/newDrawing"

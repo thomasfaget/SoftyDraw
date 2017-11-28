@@ -111,7 +111,7 @@ public class SoftyDrawActivity extends AppCompatActivity {
     /** Menu listener (in the toolbar)
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addButton :
                 addColorButton();
@@ -128,7 +128,8 @@ public class SoftyDrawActivity extends AppCompatActivity {
                 item.setIcon(iconErase);
                 break;
             case R.id.changeBrush:
-                changeBrush();
+                changeBrush(item);
+                item.setTitle(String.valueOf((int) paintingView.getLastBrushSize())); // Change text
                 break;
             case R.id.newDrawing :
                 newDraw();
@@ -255,7 +256,7 @@ public class SoftyDrawActivity extends AppCompatActivity {
 
     /** Change the width of the brush
      */
-    private void changeBrush() {
+    private void changeBrush(final MenuItem item) {
         CharSequence[] items = {" Fin (10)"," Médium (20)"," Epais (30)"};
 
         // Get the last brush size to init the checkbox
@@ -284,11 +285,13 @@ public class SoftyDrawActivity extends AppCompatActivity {
                         else if (selectedPosition == 1) {
                             paintingView.setLastBrushSize(mediumBrush);
                             paintingView.setBrushSize(mediumBrush);
+
                         }
                         else if (selectedPosition == 2) {
                             paintingView.setLastBrushSize(largeBrush);
                             paintingView.setBrushSize(largeBrush);
                         }
+                        item.setTitle(String.valueOf((int) paintingView.getLastBrushSize()));
                     }
                 }).show();
     }

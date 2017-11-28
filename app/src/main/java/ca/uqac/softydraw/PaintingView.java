@@ -3,11 +3,9 @@ package ca.uqac.softydraw;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -35,6 +33,8 @@ public class PaintingView extends View {
     private boolean erase = false;
     // current color
     private int currentColor = -1;
+    // Max pointers
+    private int MAX_POINTERS = 6;
 
 
     public PaintingView(Context context) {
@@ -79,7 +79,9 @@ public class PaintingView extends View {
      */
     public void setCurrentColor(int color) {
         invalidate();
-        drawPaint.setColor(color);
+        if (!erase) {
+            drawPaint.setColor(color);
+        }
         currentColor = color;
     }
 
@@ -128,27 +130,30 @@ public class PaintingView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        float touchX = event.getX();
-        float touchY = event.getY();
+        int nbPointers = Math.min(event.getPointerCount(), MAX_POINTERS);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                drawPath.moveTo(touchX, touchY);
+                drawPath.moveTo(event.getX(), event.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                drawPath.lineTo(touchX, touchY);
+                for (int i = 0; i < nbPointers; i++) {
+                    float touchX = event.getX(i);
+                    float touchY = event.getY(i);
+                    drawPath.lineTo(touchX, touchY);
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                drawPath.lineTo(touchX, touchY);
+                drawPath.lineTo(event.getX(), event.getY());
                 drawCanvas.drawPath(drawPath, drawPaint);
                 drawPath.reset();
                 break;
             default:
                 return false;
         }
-
         invalidate();
         return true;
     }
+
 
 }
